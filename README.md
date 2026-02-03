@@ -45,21 +45,25 @@ url = "https://twoj-adres.com"
 python qr_kod.py
 ```
 
-3. Kod QR zostanie zapisany jako `qr_meta_horizon.png` w bieżącym katalogu i automatycznie otworzy się w domyślnej przeglądarce obrazów.
+3. Kod QR zostanie zapisany w katalogu `docs/exampels/qr_meta_horizon.png` i automatycznie otworzy się w domyślnej przeglądarce obrazów.
 
 ## Przykład
 
 ```python
 import qrcode
 from PIL import Image
+import os
 
 url = "https://horizon.meta.com/profile/553955491139068/"
 
+# Upewnij się, że katalog istnieje
+os.makedirs("docs/exampels", exist_ok=True)
+
 img = qrcode.make(url)
-img.save("qr_meta_horizon.png")
+img.save("docs/exampels/qr_meta_horizon.png")
 img.show()
 
-print("Plik został zapisany jako 'qr_meta_horizon.png' w bieżącym katalogu")
+print("Plik został zapisany jako 'docs/exampels/qr_meta_horizon.png'")
 ```
 
 ## Funkcje

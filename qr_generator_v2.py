@@ -23,7 +23,7 @@ img_podpis.paste(img, (0, 0))
 # Dodawanie tekstu
 draw = ImageDraw.Draw(img_podpis)
 try:
-    font = ImageFont.truetype("AndadaPro-Regular.ttf", 28)
+    font = ImageFont.truetype("segoeui.ttf", 28)
 except:
     font = ImageFont.load_default()
 

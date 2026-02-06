@@ -2,10 +2,10 @@ import qrcode
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-url = "https://github.com/mplik"   # Wpisz tu swój adres
-opis = "gh profile"      # Podpis pod kodem QR
-filename = "outputs/qr_gh_profile.png"  # Nazwa pliku do zapisu
-filename_onedrive = r"C:\Users\Dell\OneDrive\kod qr\mplik_kody_qr_github\qr_gh_profile.png"  # Kopia na OneDrive
+url = "https://billing.stripe.com/p/login/fZedROdPQ6rb6CkdQQ"   # Wpisz tu swój adres
+opis = "qr-portal"      # Podpis pod kodem QR
+filename = "outputs/qr_portal.png"  # Nazwa pliku do zapisu
+filename_onedrive = r"C:\Users\Dell\OneDrive\kod qr\mplik_kody_qr_github\qr_portal.png"  # Kopia na OneDrive
 
 # Upewnij się, że katalogi istnieją
 os.makedirs("outputs", exist_ok=True)

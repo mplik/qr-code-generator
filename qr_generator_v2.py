@@ -2,9 +2,9 @@ import qrcode
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-url = "https://mplik.eu"   # Wpisz tu swój adres
-opis = "giełda domen"      # Podpis pod kodem QR
-filename = "outputs/qr_mplik_podpis.png"  # Nazwa pliku do zapisu
+url = "https://github.com/mplik?tab=repositories"   # Wpisz tu swój adres
+opis = "profil GitHub"      # Podpis pod kodem QR
+filename = "outputs/qr_github_profile.png"  # Nazwa pliku do zapisu
 
 # Upewnij się, że katalog istnieje
 os.makedirs("outputs", exist_ok=True)

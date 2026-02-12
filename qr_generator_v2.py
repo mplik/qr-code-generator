@@ -2,10 +2,10 @@ import qrcode
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-url = "https://rabinem6.fakturownia.pl/u/partner"   # Wpisz tu swój adres
-opis = "Faktury QR"      # Podpis pod kodem QR
-filename = "outputs/faktury_qr.png"  # Nazwa pliku do zapisu
-filename_onedrive = r"C:\Users\Dell\OneDrive\kod qr\mplik_kody_qr_github\faktury_qr.png"  # Kopia na OneDrive
+url = "https://try.elevenlabs.io/qr-getnerator"   # Wpisz tu swój adres
+opis = "EL-QR Studio"      # Podpis pod kodem QR
+filename = "outputs/el_qr_studio.png"  # Nazwa pliku do zapisu
+filename_onedrive = r"C:\Users\Dell\OneDrive\kod qr\mplik_kody_qr_github\el_qr_studio.png"  # Kopia na OneDrive
 
 # Upewnij się, że katalogi istnieją
 os.makedirs("outputs", exist_ok=True)

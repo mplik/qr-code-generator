@@ -2,6 +2,16 @@
 
 Prosty generator kodów QR w języku Python, który tworzy kod QR z podanego adresu URL.
 
+## 🌟 Live Demo
+
+**Wypróbuj aplikację online (bez instalacji!):**
+
+🔗 **[https://web-production-18f06.up.railway.app](https://web-production-18f06.up.railway.app)**
+
+Aplikacja działa 24/7 w chmurze Railway. Wejdź, wpisz URL, wygeneruj QR i pobierz PNG - wszystko w przeglądarce! 🚀
+
+---
+
 ## Opis
 
 Skrypt generuje kod QR na podstawie wprowadzonego adresu URL i zapisuje go jako plik PNG. Kod QR można następnie zeskanować telefonem, aby szybko przejść do zapisanego adresu.

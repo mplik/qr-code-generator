@@ -6,6 +6,29 @@ Prosty generator kodów QR w języku Python, który tworzy kod QR z podanego adr
 
 Skrypt generuje kod QR na podstawie wprowadzonego adresu URL i zapisuje go jako plik PNG. Kod QR można następnie zeskanować telefonem, aby szybko przejść do zapisanego adresu.
 
+## 🚀 Sposoby użycia
+
+Projekt oferuje **3 sposoby** generowania kodów QR:
+
+### 1. 🌐 Flask Web App (Polecane!)
+- **Nowoczesny interfejs webowy**
+- Dostępny w przeglądarce
+- Bez edycji kodu - wszystko przez formularz
+- Możliwość hostingu online (Railway/Render)
+- Idealne dla użytkowników bez znajomości Pythona
+
+### 2. 🔧 Zaawansowany skrypt (qr_generator_v2.py)
+- Generowanie QR z niestandardowym podpisem
+- Edycja parametrów w kodzie
+- Automatyczne zapisywanie w `outputs/`
+
+### 3. ⚡ Prosty skrypt (qr_kod.py)
+- Podstawowe funkcje
+- Najprostsze użycie
+- Szybkie generowanie bez dodatków
+
+---
+
 ## Wymagania
 
 - Python 3.x
@@ -22,7 +45,7 @@ cd qr-code-generator
 
 2. Zainstaluj wymagane biblioteki:
 ```bash
-pip install qrcode[pil]
+pip install -r requirements.txt
 ```
 
 lub w środowisku wirtualnym:
@@ -30,10 +53,72 @@ lub w środowisku wirtualnym:
 python -m venv venv
 .\venv\Scripts\Activate.ps1  # Windows
 source venv/bin/activate      # Linux/Mac
-pip install qrcode[pil]
+pip install -r requirements.txt
 ```
 
-## Użycie
+---
+
+## 🌐 Flask Web App - Użycie
+
+### Uruchomienie lokalne
+
+1. Upewnij się, że zainstalowałeś wszystkie zależności:
+```bash
+pip install -r requirements.txt
+```
+
+2. Uruchom serwer Flask:
+```bash
+python app.py
+```
+
+3. Otwórz przeglądarkę i wejdź na:
+```
+http://127.0.0.1:5000
+```
+
+4. **Gotowe!** 🎉
+   - Wpisz URL w formularzu
+   - Dodaj opcjonalną etykietę
+   - Kliknij "Generuj kod QR"
+   - Pobierz wygenerowany PNG
+
+### Hosting online (Railway/Render)
+
+#### Railway (Darmowy)
+
+1. Załóż konto na [railway.app](https://railway.app)
+2. Zaloguj się przez GitHub
+3. Kliknij **"New Project"** → **"Deploy from GitHub repo"**
+4. Wybierz `mplik/qr-code-generator`
+5. Railway automatycznie:
+   - Wykryje Python
+   - Zainstaluje dependencies z `requirements.txt`
+   - Uruchomi aplikację zgodnie z `Procfile`
+6. **Gotowe!** Otrzymasz link do działającej aplikacji
+
+#### Render (Darmowy)
+
+1. Załóż konto na [render.com](https://render.com)
+2. Połącz z GitHubem
+3. Utwórz **"New Web Service"**
+4. Wybierz repozytorium `qr-code-generator`
+5. Render automatycznie skonfiguruje deployment
+6. **Gotowe!** Twoja aplikacja jest online
+
+### Funkcje Web App
+
+- ✅ Intuicyjny interfejs użytkownika
+- ✅ Generowanie QR w czasie rzeczywistym
+- ✅ Niestandardowe etykiety pod kodem QR
+- ✅ Pobieranie PNG jednym kliknięciem
+- ✅ Responsywny design (działa na telefonach)
+- ✅ Profesjonalny wygląd z gradientowym tłem
+- ✅ Brak potrzeby edycji kodu
+
+---
+
+## ⚡ Użycie skryptów CLI
 
 1. Edytuj plik `qr_kod.py` i wpisz swój adres URL w zmiennej `url`:
 ```python
@@ -46,6 +131,8 @@ python qr_kod.py
 ```
 
 3. Kod QR zostanie zapisany w katalogu `docs/examples/qr_meta_horizon.png` i automatycznie otworzy się w domyślnej przeglądarce obrazów.
+
+---
 
 ## Przykład
 

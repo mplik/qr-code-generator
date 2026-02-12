@@ -1,0 +1,247 @@
+/* Reset i podstawowe style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #4F46E5;
+    --primary-hover: #4338CA;
+    --success-color: #10B981;
+    --error-color: #EF4444;
+    --text-color: #1F2937;
+    --text-light: #6B7280;
+    --bg-color: #F9FAFB;
+    --card-bg: #FFFFFF;
+    --border-color: #E5E7EB;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+/* Cards */
+.form-card,
+.result-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 1.5rem;
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+/* Buttons */
+.btn-generate,
+.btn-download,
+.btn-new {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-generate {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    box-shadow: var(--shadow);
+}
+
+.btn-generate:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-download {
+    background: var(--success-color);
+    color: white;
+    margin-right: 1rem;
+}
+
+.btn-download:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.btn-new {
+    background: var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-new:hover {
+    background: #D1D5DB;
+}
+
+/* Alerts */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.alert-error {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-left: 4px solid var(--error-color);
+}
+
+/* Result */
+.result-card h2 {
+    color: var(--success-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.qr-preview {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-color);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.qr-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.result-info {
+    background: var(--bg-color);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    word-break: break-all;
+}
+
+.result-info p {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.result-info p:last-child {
+    margin-bottom: 0;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: white;
+    opacity: 0.9;
+}
+
+footer a {
+    color: white;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+footer a:hover {
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .form-card,
+    .result-card {
+        padding: 1.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn-download {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-download,
+    .btn-new {
+        width: 100%;
+        text-align: center;
+    }
+}

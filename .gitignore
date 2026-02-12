@@ -8,3 +8,4 @@ __pycache__/
 # Generated QR codes
 docs/examples/
 outputs/
+static/generated/*.png

@@ -49,6 +49,10 @@ python qr_kod.py
 
 ## Przykład
 
+![Przykładowy kod QR dla EL-QR Studio](static/examples/el_qr_studio.png)
+
+*Przykładowy kod QR wygenerowany dla "EL-QR Studio"*
+
 ```python
 import qrcode
 from PIL import Image

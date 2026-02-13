@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Icon Maker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        .icon-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+        .icon-section h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .icon-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .info {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid #4CAF50;
+        }
+        .info h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        .info ol {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+        .info code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 QR Code Generator - Icon Maker</h1>
+        <p class="subtitle">Wygeneruj ikony PWA dla swojej aplikacji</p>
+
+        <!-- Ikona 192x192 -->
+        <div class="icon-section">
+            <h2>📱 Ikona 192x192 px</h2>
+            <div class="icon-preview">
+                <canvas id="canvas192" width="192" height="192"></canvas>
+            </div>
+            <button onclick="downloadIcon(192)">⬇ Pobierz icon-192.png</button>
+        </div>
+
+        <!-- Ikona 512x512 -->
+        <div class="icon-section">
+            <h2>🖼 Ikona 512x512 px</h2>
+            <div class="icon-preview">
+                <canvas id="canvas512" width="512" height="512"></canvas>
+            </div>
+            <button onclick="downloadIcon(512)">⬇ Pobierz icon-512.png</button>
+        </div>
+
+        <!-- Instrukcje -->
+        <div class="info">
+            <h3>📋 Następne kroki:</h3>
+            <ol>
+                <li>Pobierz obie ikony (kliknij przyciski powyżej)</li>
+                <li>Otwórz terminal w VS Code (Ctrl + `)</li>
+                <li>Wpisz: <code>mv ~/Downloads/icon-*.png static/</code></li>
+                <li>Gotowe! Ikony są w folderze <code>static/</code> ✅</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Funkcja rysująca ikonę QR Code
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Gradient tła
+            const gradient = ctx.createLinearGradient(0, 0, 0, size);
+            gradient.addColorStop(0, '#4CAF50');
+            gradient.addColorStop(1, '#2E7D32');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Parametry dla QR pattern
+            const padding = size * 0.15;
+            const qrSize = size - (padding * 2);
+            const gridSize = 8; // 8x8 grid
+            const cellSize = qrSize / gridSize;
+            
+            // Wzór QR Code (stylizowany)
+            const pattern = [
+                [1,1,1,1,1,1,1,0],
+                [1,0,0,0,0,0,1,0],
+                [1,0,1,1,1,0,1,0],
+                [1,0,1,1,1,0,1,0],
+                [1,0,1,1,1,0,1,1],
+                [1,0,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1],
+                [0,0,1,0,1,1,0,1]
+            ];
+            
+            // Rysowanie QR pattern
+            ctx.fillStyle = 'white';
+            for (let row = 0; row < gridSize; row++) {
+                for (let col = 0; col < gridSize; col++) {
+                    if (pattern[row][col] === 1) {
+                        const x = padding + (col * cellSize);
+                        const y = padding + (row * cellSize);
+                        const cornerRadius = cellSize * 0.15;
+                        
+                        // Zaokrąglone rogi dla lepszego wyglądu
+                        ctx.beginPath();
+                        ctx.roundRect(x, y, cellSize * 0.9, cellSize * 0.9, cornerRadius);
+                        ctx.fill();
+                    }
+                }
+            }
+        }
+        
+        // Funkcja pobierania ikony
+        function downloadIcon(size) {
+            const canvas = document.getElementById(`canvas${size}`);
+            const link = document.createElement('a');
+            link.download = `icon-${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Rysowanie ikon przy załadowaniu strony
+        window.onload = () => {
+            drawIcon(document.getElementById('canvas192'), 192);
+            drawIcon(document.getElementById('canvas512'), 512);
+        };
+    </script>
+</body>
+</html>

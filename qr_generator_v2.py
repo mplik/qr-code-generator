@@ -2,10 +2,10 @@ import qrcode
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-url = "https://try.elevenlabs.io/qr-getnerator"   # Wpisz tu swój adres
-opis = "EL-QR Studio"      # Podpis pod kodem QR
-filename = "outputs/el_qr_studio.png"  # Nazwa pliku do zapisu
-filename_onedrive = r"C:\Users\Dell\OneDrive\kod qr\mplik_kody_qr_github\el_qr_studio.png"  # Kopia na OneDrive
+url = "https://web-production-18f06.up.railway.app"   # Wpisz tu swój adres
+opis = "QR-APP-GENERATOR"      # Podpis pod kodem QR
+filename = "outputs/qr-app-generator.png"  # Nazwa pliku do zapisu
+filename_onedrive = r"C:\Users\Dell\OneDrive\kod qr\mplik_kody_qr_github\qr-app-generator.png"  # Kopia na OneDrive
 
 # Upewnij się, że katalogi istnieją
 os.makedirs("outputs", exist_ok=True)

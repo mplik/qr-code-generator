@@ -9,3 +9,6 @@ __pycache__/
 docs/examples/
 outputs/
 static/generated/*.png
+
+# Development tools
+generate_icons.html

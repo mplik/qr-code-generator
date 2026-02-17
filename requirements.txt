@@ -5,3 +5,5 @@ gunicorn
 
 stripe
 flask-session
+
+python-dotenv

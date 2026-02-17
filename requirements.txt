@@ -2,3 +2,6 @@ qrcode[pil]
 Pillow
 Flask
 gunicorn
+
+stripe
+flask-session

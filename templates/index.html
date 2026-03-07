@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator - Generator Kodów QR</title>
+    <title>Generator kodów QR – szybkie i darmowe kody QR online</title>
+    <meta name="description" content="Szybko i łatwo generuj kody QR online. 3 darmowe kody dla każdego użytkownika. Prosta obsługa, brak rejestracji, wersja premium bez limitów.">
+    <meta name="keywords" content="QR, kod QR, generator, darmowy, online, szybki, bez rejestracji">
+    <meta name="author" content="mplik">
     <meta name="theme-color" content="#4CAF50">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ url_for('static', filename='favicon-512.png') }}">
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ url_for('static', filename='favicon-128.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-128.png') }}">
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Generator kodów QR">
+    <meta property="og:description" content="Szybko i łatwo generuj kody QR online. 3 darmowe kody dla każdego użytkownika.">
+    <meta property="og:image" content="{{ url_for('static', filename='favicon-512.png') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://web-production-18f06.up.railway.app/">
+    <meta property="og:see_also" content="https://bit.ly/qrrgenrepo">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>

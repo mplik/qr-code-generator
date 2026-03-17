@@ -148,7 +148,7 @@ python qr_kod.py
 
 ![Przykładowy kod QR dla QR app generator](static/qr-app-generator.png)
 
-*Przykładowy kod QR wygenerowany dla "EL-QR Studio"*
+*Przykładowy kod QR wygenerowany dla "QR app generator"*
 
 ```python
 import qrcode

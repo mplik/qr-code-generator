@@ -1,4 +1,6 @@
 import os
+import threading
+from collections import OrderedDict
 from flask import Flask, render_template, request, send_file, session, redirect, url_for
 from flask_session import Session
 from dotenv import load_dotenv
@@ -17,6 +19,54 @@ app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev_secret')
 Session(app)
+
+# Limit darmowych kodów QR
+FREE_QR_LIMIT = 3
+
+# Maksymalna liczba śledzonych adresów IP (ogranicza zużycie pamięci)
+_MAX_TRACKED_IPS = 100_000
+
+# Słownik przechowujący liczbę wygenerowanych kodów QR per adres IP.
+# OrderedDict umożliwia usuwanie najstarszych wpisów (LRU) gdy słownik jest pełny.
+# Klucz: adres IP, wartość: liczba wygenerowanych kodów QR.
+_ip_qr_counts: OrderedDict[str, int] = OrderedDict()
+_ip_qr_lock = threading.Lock()
+
+
+def get_client_ip() -> str:
+    """Zwraca adres IP klienta.
+
+    Na platformach Railway/Render ruch przechodzi przez zaufane proxy,
+    które dodaje rzeczywisty adres klienta jako ostatni wpis w nagłówku
+    X-Forwarded-For.  Pobieramy ten ostatni wpis, aby uniknąć możliwości
+    sfałszowania nagłówka przez klienta.
+    Gdy nagłówek nie jest dostępny, używamy request.remote_addr.
+    """
+    forwarded_for = request.headers.get('X-Forwarded-For', '').strip()
+    if forwarded_for:
+        # Ostatni wpis dodany przez zaufane proxy – niemodyfikowalny przez klienta
+        return forwarded_for.split(',')[-1].strip()
+    return request.remote_addr or '127.0.0.1'
+
+
+def _check_and_increment_ip(ip: str) -> tuple[bool, int]:
+    """Atomically checks the free-code limit and increments the counter if allowed.
+
+    Returns a (allowed, new_count) tuple.  The entire operation is performed
+    inside a single lock acquisition so concurrent requests cannot race past
+    the limit check.
+    """
+    with _ip_qr_lock:
+        count = _ip_qr_counts.get(ip, 0)
+        if count >= FREE_QR_LIMIT:
+            return False, count
+        count += 1
+        _ip_qr_counts[ip] = count
+        _ip_qr_counts.move_to_end(ip)
+        # Evict the oldest entry when the dictionary is at capacity
+        if len(_ip_qr_counts) > _MAX_TRACKED_IPS:
+            _ip_qr_counts.popitem(last=False)
+        return True, count
 
 # Klucze Stripe z .env
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
@@ -103,31 +153,32 @@ def generate():
     
     if not url:
         return render_template('index.html', error="Proszę podać adres URL")
-    
-    # Licznik darmowych kodów QR w sesji
-    qr_count = session.get('qr_count', 0)
+
     subscription_active = session.get('subscription_active', False)
 
-    # Limit 3 darmowe kody QR, potem paywall
-    if qr_count >= 3 and not subscription_active:
-        return render_template('paywall.html')
+    # Check the per-IP free limit – enforced even in incognito / private browsing
+    client_ip = get_client_ip()
 
-    # Generuj unikalną nazwę pliku z timestampem
+    if not subscription_active:
+        allowed, new_count = _check_and_increment_ip(client_ip)
+        if not allowed:
+            return render_template('paywall.html')
+    else:
+        new_count = 0
+
+    # Generate a unique filename using a timestamp
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     filename = f"qr_{timestamp}.png"
     filepath = os.path.join(UPLOAD_FOLDER, filename)
 
     try:
         generate_qr_with_label(url, label, filepath)
-        # Zwiększ licznik tylko jeśli nie ma subskrypcji
-        if not subscription_active:
-            session['qr_count'] = qr_count + 1
-        return render_template('index.html', 
-                             success=True, 
+        return render_template('index.html',
+                             success=True,
                              qr_image=f"generated/{filename}",
                              url=url,
                              label=label,
-                             qr_count=session.get('qr_count', 0),
+                             qr_count=new_count,
                              subscription_active=subscription_active)
     except Exception as e:
         return render_template('index.html', error=f"Błąd podczas generowania: {str(e)}")

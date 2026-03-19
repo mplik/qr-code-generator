@@ -15,3 +15,6 @@ generate_icons.html
 
 # Plik z danymi środowiskowymi (np. klucze API) – nie commitować!
 .env
+
+# Flask server-side session files
+flask_session/
